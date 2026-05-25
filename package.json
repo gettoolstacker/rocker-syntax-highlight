@@ -1,0 +1,139 @@
+{
+  "name": "rocker-syntax-highlight",
+  "displayName": "Rocker Template Syntax Highlight",
+  "description": "Syntax highlighting for Rocker (.rocker.html) Java template files",
+  "version": "0.0.1",
+  "publisher": "gettoolstacker",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "keywords": [
+    "rocker",
+    "java",
+    "template",
+    "syntax highlight",
+    "html"
+  ],
+  "icon": "icon.png",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gettoolstacker/rocker-syntax-highlight"
+  },
+  "galleryBanner": {
+    "color": "#1e1e1e",
+    "theme": "dark"
+  },
+  "contributes": {
+    "configurationDefaults": {
+      "editor.tokenColorCustomizations": {
+        "[*Dark*]": {
+          "textMateRules": [
+            {
+              "scope": "punctuation.definition.expression.rocker",
+              "settings": {
+                "foreground": "#ffffff"
+              }
+            },
+            {
+              "scope": "punctuation.accessor.dot.rocker",
+              "settings": {
+                "foreground": "#ffffff"
+              }
+            },
+            {
+              "scope": "keyword.operator.rocker",
+              "settings": {
+                "foreground": "#d4d4d4"
+              }
+            },
+            {
+              "scope": [
+                "punctuation.definition.arguments.begin.rocker",
+                "punctuation.definition.arguments.end.rocker",
+                "punctuation.section.block.rocker"
+              ],
+              "settings": {
+                "foreground": "#dcdcaa"
+              }
+            },
+            {
+              "scope": "string.quoted.double.html string.quoted.double.rocker",
+              "settings": {
+                "foreground": "#c586c0"
+              }
+            },
+            {
+              "scope": "string.quoted.single.html string.quoted.single.rocker",
+              "settings": {
+                "foreground": "#c586c0"
+              }
+            }
+          ]
+        },
+        "[*Light*]": {
+          "textMateRules": [
+            {
+              "scope": "punctuation.definition.expression.rocker",
+              "settings": {
+                "foreground": "#000000"
+              }
+            },
+            {
+              "scope": "punctuation.accessor.dot.rocker",
+              "settings": {
+                "foreground": "#000000"
+              }
+            },
+            {
+              "scope": "keyword.operator.rocker",
+              "settings": {
+                "foreground": "#444444"
+              }
+            },
+            {
+              "scope": [
+                "punctuation.definition.arguments.begin.rocker",
+                "punctuation.definition.arguments.end.rocker",
+                "punctuation.section.block.rocker"
+              ],
+              "settings": {
+                "foreground": "#8a6700"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "languages": [
+      {
+        "id": "rocker",
+        "aliases": [
+          "Rocker",
+          "rocker"
+        ],
+        "extensions": [
+          ".rocker.html"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "rocker",
+        "scopeName": "text.html.rocker",
+        "path": "./syntaxes/rocker.tmLanguage.json"
+      },
+      {
+        "scopeName": "rocker.injection",
+        "path": "./syntaxes/rocker-injection.tmLanguage.json",
+        "injectTo": [
+          "text.html.rocker"
+        ]
+      }
+    ]
+  }
+}

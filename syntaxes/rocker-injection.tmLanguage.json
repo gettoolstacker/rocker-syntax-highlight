@@ -1,0 +1,30 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Rocker Injection",
+	"scopeName": "rocker.injection",
+	"injectionSelector": "L:string.quoted.double.html, L:string.quoted.single.html, L:meta.tag",
+	"patterns": [
+		{ "include": "text.html.rocker#rocker-escape" },
+		{ "include": "text.html.rocker#rocker-control" },
+		{ "name": "punctuation.section.block.rocker", "match": "[{}]" },
+		{
+			"name": "meta.expression.rocker",
+			"match": "(@)([a-zA-Z_][a-zA-Z0-9_]*(?:\\.[a-zA-Z_][a-zA-Z0-9_]*(?:\\((?:[^()\"']|\"[^\"]*\"|'[^']*'|\\((?:[^()\"']|\"[^\"]*\"|'[^']*'|\\((?:[^()\"']|\"[^\"]*\"|'[^']*')*\\))*\\))*\\))?)*)",
+			"captures": {
+				"1": { "name": "punctuation.definition.expression.rocker" },
+				"2": {
+					"patterns": [
+						{ "match": "\\.", "name": "punctuation.accessor.dot.rocker" },
+						{ "match": "[a-zA-Z_][a-zA-Z0-9_]*(?=\\()", "name": "entity.name.function.rocker" },
+						{ "match": "\"[^\"]*\"", "name": "string.quoted.double.rocker" },
+						{ "match": "'[^']*'", "name": "string.quoted.single.rocker" },
+						{ "match": "\\(", "name": "punctuation.definition.arguments.begin.rocker" },
+						{ "match": "\\)", "name": "punctuation.definition.arguments.end.rocker" },
+						{ "match": "!=|==|<=|>=|&&|\\|\\||\\+\\+|--|[!+\\-=<>%]", "name": "keyword.operator.rocker" },
+						{ "match": "[a-zA-Z_][a-zA-Z0-9_]*", "name": "variable.other.rocker" }
+					]
+				}
+			}
+		}
+	]
+}

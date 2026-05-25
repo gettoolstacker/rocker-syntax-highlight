@@ -1,0 +1,201 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Rocker",
+	"scopeName": "text.html.rocker",
+	"patterns": [
+		{ "include": "#rocker-escape" },
+		{ "include": "#rocker-import" },
+		{ "include": "#rocker-args" },
+		{ "include": "#rocker-control" },
+		{ "include": "#rocker-template-call" },
+		{ "include": "#rocker-expression" },
+		{ "include": "text.html.basic" }
+	],
+	"repository": {
+		"rocker-escape": {
+			"name": "constant.character.escape.rocker",
+			"match": "@@"
+		},
+		"rocker-import": {
+			"name": "meta.import.rocker",
+			"match": "(@import)\\s+([^\\n]+)",
+			"captures": {
+				"1": { "name": "keyword.other.import.rocker" },
+				"2": { "name": "entity.name.type.rocker" }
+			}
+		},
+		"rocker-args": {
+			"name": "meta.args.rocker",
+			"begin": "(@args)\\s*\\(",
+			"beginCaptures": {
+				"1": { "name": "keyword.other.args.rocker" }
+			},
+			"end": "\\)",
+			"patterns": [
+				{ "include": "#java-type" }
+			]
+		},
+		"rocker-control": {
+			"patterns": [
+				{
+					"begin": "(}[ \\t]*else[ \\t]+if)[ \\t]*(\\()",
+					"beginCaptures": {
+						"1": { "name": "keyword.control.rocker" },
+						"2": { "name": "punctuation.definition.arguments.begin.rocker" }
+					},
+					"end": "\\)",
+					"endCaptures": { "0": { "name": "punctuation.definition.arguments.end.rocker" } },
+					"patterns": [ { "include": "#java-condition" } ]
+				},
+				{
+					"name": "keyword.control.rocker",
+					"match": "}[ \\t]*else\\b"
+				},
+				{
+					"begin": "(@(?:if|elseif|for|while|with))[ \\t]*(\\()",
+					"beginCaptures": {
+						"1": { "name": "keyword.control.rocker" },
+						"2": { "name": "punctuation.definition.arguments.begin.rocker" }
+					},
+					"end": "\\)",
+					"endCaptures": { "0": { "name": "punctuation.definition.arguments.end.rocker" } },
+					"patterns": [ { "include": "#java-condition" } ]
+				},
+				{
+					"name": "keyword.control.rocker",
+					"match": "@(else|break|continue|return)\\b"
+				},
+				{
+					"name": "keyword.other.rocker",
+					"match": "@(content|renderBody|layout|super)\\b"
+				}
+			]
+		},
+		"java-condition": {
+			"patterns": [
+				{ "include": "#java-operator" },
+				{ "include": "#java-primitive-type" },
+				{ "include": "#rocker-literal" },
+				{ "include": "#java-args" },
+				{ "include": "#java-class-chain" },
+				{ "include": "#java-expression" }
+			]
+		},
+		"java-operator": {
+			"name": "keyword.operator.rocker",
+			"match": "!=|==|<=|>=|&&|\\|\\||\\+\\+|--|[!+\\-=<>%]"
+		},
+		"java-primitive-type": {
+			"name": "storage.type.java.rocker",
+			"match": "\\b(int|long|boolean|double|float|char|byte|short|var|instanceof)\\b"
+		},
+		"java-args": {
+			"name": "meta.arguments.java.rocker",
+			"begin": "\\(",
+			"end": "\\)",
+			"beginCaptures": { "0": { "name": "punctuation.definition.arguments.begin.rocker" } },
+			"endCaptures": { "0": { "name": "punctuation.definition.arguments.end.rocker" } },
+			"patterns": [ { "include": "#java-condition" } ]
+		},
+		"java-class-chain": {
+			"name": "meta.class-chain.java.rocker",
+			"begin": "\\b([A-Z][A-Za-z0-9_]*)",
+			"beginCaptures": {
+				"1": { "name": "storage.type.java.rocker" }
+			},
+			"end": "(?![.a-zA-Z0-9_(])",
+			"patterns": [
+				{ "include": "#java-args" },
+				{
+					"begin": "(\\.)",
+					"beginCaptures": {
+						"1": { "name": "punctuation.accessor.dot.rocker" }
+					},
+					"end": "(?![a-zA-Z0-9_(])",
+					"patterns": [
+						{ "name": "entity.name.function.rocker", "match": "[a-zA-Z_][a-zA-Z0-9_]*" },
+						{ "include": "#java-args" }
+					]
+				}
+			]
+		},
+		"rocker-template-call": {
+			"name": "meta.template-call.rocker",
+			"begin": "(@)([A-Z][A-Za-z0-9_]*)\\.template\\s*\\(",
+			"beginCaptures": {
+				"1": { "name": "punctuation.definition.template.rocker" },
+				"2": { "name": "entity.name.type.rocker" }
+			},
+			"end": "\\)",
+			"patterns": [
+				{ "include": "#java-condition" }
+			]
+		},
+		"rocker-expression": {
+			"name": "meta.expression.rocker",
+			"begin": "(@)([a-zA-Z_][a-zA-Z0-9_]*)",
+			"beginCaptures": {
+				"1": { "name": "punctuation.definition.expression.rocker" },
+				"2": { "name": "variable.other.rocker" }
+			},
+			"end": "(?![.a-zA-Z0-9_(])",
+			"patterns": [
+				{ "include": "#java-args" },
+				{
+					"begin": "(\\.)",
+					"beginCaptures": {
+						"1": { "name": "punctuation.accessor.dot.rocker" }
+					},
+					"end": "(?![a-zA-Z0-9_(])",
+					"patterns": [
+						{ "name": "entity.name.function.rocker", "match": "[a-zA-Z_][a-zA-Z0-9_]*" },
+						{ "include": "#java-args" }
+					]
+				}
+			]
+		},
+		"rocker-literal": {
+			"patterns": [
+				{ "name": "constant.language.rocker", "match": "\\b(true|false|null)\\b" },
+				{ "name": "constant.numeric.rocker", "match": "\\b[0-9]+(\\.[0-9]+)?\\b" },
+				{ "name": "string.quoted.double.rocker", "begin": "\"", "end": "\"" },
+				{ "name": "string.quoted.single.rocker", "begin": "'", "end": "'" }
+			]
+		},
+		"java-expression": {
+			"name": "meta.expression.java.rocker",
+			"begin": "\\b([a-z][a-zA-Z0-9_]*)",
+			"beginCaptures": {
+				"1": { "name": "variable.other.rocker" }
+			},
+			"end": "(?![.a-zA-Z0-9_(])",
+			"patterns": [
+				{ "include": "#java-args" },
+				{
+					"begin": "(\\.)",
+					"beginCaptures": {
+						"1": { "name": "punctuation.accessor.dot.rocker" }
+					},
+					"end": "(?![a-zA-Z0-9_(])",
+					"patterns": [
+						{ "name": "entity.name.function.rocker", "match": "[a-zA-Z_][a-zA-Z0-9_]*" },
+						{ "include": "#java-args" }
+					]
+				}
+			]
+		},
+		"java-type": {
+			"patterns": [
+				{ "name": "storage.type.java.rocker", "match": "\\b[A-Z][A-Za-z0-9_]*\\b" },
+				{
+					"begin": "<",
+					"end": ">",
+					"beginCaptures": { "0": { "name": "punctuation.definition.generic.begin.rocker" } },
+					"endCaptures": { "0": { "name": "punctuation.definition.generic.end.rocker" } },
+					"patterns": [ { "include": "#java-type" } ]
+				},
+				{ "name": "variable.parameter.rocker", "match": "\\b[a-z][a-zA-Z0-9_]*\\b" }
+			]
+		}
+	}
+}
