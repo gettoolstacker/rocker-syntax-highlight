@@ -2,7 +2,7 @@
   "name": "rocker-syntax-highlight",
   "displayName": "Rocker Template Syntax Highlight",
   "description": "Syntax highlighting for Rocker (.rocker.html) Java template files",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "gettoolstacker",
   "engines": {
     "vscode": "^1.90.0"
