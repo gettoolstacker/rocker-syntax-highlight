@@ -4,6 +4,13 @@
 	"scopeName": "rocker.injection",
 	"injectionSelector": "L:string.quoted.double.html, L:string.quoted.single.html, L:meta.tag",
 	"patterns": [
+		{
+			"name": "comment.block.rocker",
+			"begin": "@\\*",
+			"end": "\\*@",
+			"beginCaptures": { "0": { "name": "punctuation.definition.comment.begin.rocker" } },
+			"endCaptures": { "0": { "name": "punctuation.definition.comment.end.rocker" } }
+		},
 		{ "include": "text.html.rocker#rocker-escape" },
 		{ "include": "text.html.rocker#rocker-control" },
 		{ "name": "punctuation.section.block.rocker", "match": "[{}]" },

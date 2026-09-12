@@ -9,6 +9,7 @@ Syntax highlighting for [Rocker](https://github.com/fizzed/rocker) `.rocker.html
 - **Template calls** — `@Template.template(args)` with full argument highlighting
 - **Declarations** — `@args` type signatures with generic support (`Map<String, Object>`)
 - **Imports** — `@import` statements
+- **Comments** — `@* ... *@` blocks (single- and multi-line) highlighted as comments
 - **Java literals** — strings, numbers, `true` / `false` / `null`, primitive types
 - **Operators** — `!=`, `==`, `&&`, `||`, `++`, `--`, `+`, and comparison operators
 - **Block delimiters** — `{` and `}` visually distinct from surrounding HTML
@@ -63,6 +64,14 @@ No additional dependencies. The extension activates automatically for files matc
 - **Comparison operator color** — The less-than and greater-than operators used inside `@if` / `@for` conditions may render with a theme-dependent color in some edge cases instead of the standard operator color. This is a TextMate grammar priority conflict between the Rocker grammar and the base HTML grammar. Compound operators such as `!=`, `==`, `&&`, and `||` are not affected.
 
 ## Release Notes
+
+### 0.0.3
+
+Added highlighting for Rocker `@* ... *@` comment blocks.
+
+### 0.0.2
+
+Added before/after preview screenshots to the README.
 
 ### 0.0.1
 

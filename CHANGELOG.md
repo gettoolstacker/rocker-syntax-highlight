@@ -1,5 +1,10 @@
 # Change Log
 
+## [0.0.3] - 2026-09-12
+
+### Added
+- Rocker comment highlighting for `@* ... *@` blocks (single- and multi-line), in both template body and HTML attribute contexts
+
 ## [0.0.2] - 2026-05-25
 
 ### Added
